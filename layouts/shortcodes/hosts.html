@@ -1,0 +1,48 @@
+<style>
+    /*
+    I know this is not the right place for CSS but this is only temporary –@iwittkau
+    */
+    .show-hosts td {
+        border: none !important;
+        padding-top: 1em !important;
+    }
+
+    .show-hosts tr {
+        border-bottom: 1px solid !important;
+    }
+
+    .show-hosts tr:last-child {
+        border: none !important;
+    }
+
+    .show-hosts table {
+        box-shadow: none !important;
+        border-collapse: collapse;
+    }
+
+    .show-hosts img {
+        display: inline-block !important;
+        border-radius: 20%;
+    }
+
+    .show-hosts img.avatar {
+        border-radius: 100%;
+    }
+
+    .show-hosts a:hover {
+        text-decoration: none;
+        border: none;
+    }
+
+    /*
+    TODO: remove css
+    
+    I know this is not the right place for CSS but this is only temporary –@iwittkau
+    */
+</style>
+<div class="show-hosts">
+    <strong>Hosts</strong>
+    <table>
+        {{.Inner}}
+    </table>
+</div>

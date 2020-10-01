@@ -1,0 +1,56 @@
+baseURL = "http://example.org/"
+languageCode = "en-us"
+title = "Sambucus Hugo Theme Demo"
+theme = "anubis" # placeholder for now 
+
+[markup.goldmark.renderer]
+unsafe= true
+
+
+[menu]
+  [[menu.main]]
+  identifier = "episodes"
+  name = "Episodes"
+  title = "Episodes"
+  url = "/podcast/"
+  weight = 0.0
+  [[menu.main]]
+  identifier = "about"
+  name = "About"
+  title = "About"
+  url = "/about/"
+  weight = 0.0
+  [[menu.main]]
+  identifier = "subscribe"
+  name = "Subscribe"
+  title = "Subscribe"
+  url = "/subscribe/"
+  weight = 0.0
+
+[params]
+    # anubis theme, TODO: remove
+    style = "light"
+
+    # general / player / shownotes
+    showTitle = "My Podcast"
+    showSubtitle = "An example podcast to demo the Sambucus theme."
+    showSummary = "This is a podcast about Hugo and other stuff related to Hugo the static site generator and how to use it as a Podcast CMS."
+    coverFull = "/images/cover-2000px.jpg"
+    coverMedium = "/images/cover-500px.jpg"
+    coverSmall = "/images/cover-50px.jpg"
+    
+    # social media
+    showTwitter = "example"
+    
+    # subscribe button
+    applePodcastsURL = "https://podcasts.apple.com/de/podcast/"
+    
+    # feed
+    fyydVerifyCode = "abcdefg"
+    copyrightYears = "2020"
+    authorName = "The Author"
+    itunesCategoryMain = "General"
+    itunesCategorySub = "Sub"
+    itunesEmail = "info@example.com"
+    itunesBlock = "no"
+    itunesExplicit = "no"

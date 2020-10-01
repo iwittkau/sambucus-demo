@@ -1,0 +1,11 @@
+{{ define "main" }}
+<div class="homepage-content">
+    {{ .Content }}
+</div>
+
+{{ range ( where site.RegularPages.ByPublishDate.Reverse "Section" "podcast" | first 3 ) }}
+{{ partial "postSummary.html" . }}
+{{ end }}
+{{ partial "pagination.html" . }}
+
+{{ end }}

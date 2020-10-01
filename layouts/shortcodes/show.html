@@ -1,0 +1,9 @@
+<tr>
+    <td><img class="avatar" src="{{ .Site.Params.CoverSmall | absURL }}"></td>
+    <td>{{.Site.Params.ShowTitle}}</td>
+    <td>
+        {{if .Site.Params.ShowTwitter }}<a target="_blank"
+            href="https://twitter.com/{{ .Site.Params.ShowTwitter }}"><img
+                src="{{ .Site.BaseURL }}/images/twitter.jpg"></a>{{end}}
+    </td>
+</tr>

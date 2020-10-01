@@ -1,0 +1,16 @@
+{
+    "version": 5,
+    "base": "player/",
+    "theme": {
+        "tokens": {
+            "brand": "#1D60A3FF",
+            "brandDark": "#5684B3FF",
+            "brandDarkest": "#144270FF",
+            "brandLightest": "#F2F2F2FF",
+            "shadeDark": "#807E7C",
+            "shadeBase": "#807E7C",
+            "contrast": "#000",
+            "alt": "#fff"
+        }
+    }
+}

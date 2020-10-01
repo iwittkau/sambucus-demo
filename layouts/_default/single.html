@@ -1,0 +1,84 @@
+{{ define "main" }}
+{{ if .Menus }}
+<nav class="post-navigation">
+    {{ range .Menus }}
+    <a href="{{ .URL | absLangURL }}" title="{{ .Title }}">{{ .Name }}</a>
+    {{ end }}
+</nav>
+{{ end }}
+
+<article class="post">
+    <header class="post-header">
+        <h1 class="post-title{{ if .Params.favorite }} favorite{{end}}{{ if .Params.draft }} draft{{end}}">
+            {{ trim .Title  " " }}</h1>
+    </header>
+    <div class="content">
+        {{ if .Params.Mp3 }}
+        <script src="http://cdn.podlove.org/web-player/5.x/embed.js"></script>
+        <script>
+            var episode = {
+                version: 5,
+                show: {
+                    title: "{{.Site.Params.ShowTitle}}",
+                    subtitle: "{{ .Site.Params.ShowSubtitle }}",
+                    summary:
+                        "{{ .Site.Params.ShowSummary }}",
+                    poster: "/images/cover.jpg",
+                    link: "{{.Site.BaseURL}}"
+                },
+                title: "{{.Title}}",
+                subtitle: "{{.Params.Subtitle}}",
+                summary: "{{ htmlUnescape .Summary | plainify }}",
+                publicationDate: "{{.Date}}",
+                poster: "{{.Site.Params.CoverMedium}}",
+                duration: "{{.Params.Duration}}",
+                link: "{{ .Permalink }}",
+                audio: [
+                    {
+                        url:
+                            "{{.Params.Mp3}}",
+                        size: "{{.Params.Size}}",
+                        title: "MP3 Audio (mp3)",
+                        mimeType: "audio/mpeg"
+                    }
+                ],
+                chapters: [
+                    {{ range .Params.Chapters }}
+                    {
+                        start: "{{.Start }}",
+                        title: "{{.Title }}",
+                        href: "{{.Href }}",
+                        image: "{{.Image }}"
+                    },
+                    {{ end }}
+                ],
+            }
+            podlovePlayer('#podlove-player', episode, '/player.json');
+        </script>
+        <div id="podlove-player" data-variant="xl"></div>
+        {{end}}
+        {{ .Content }}
+    </div>
+    {{ partial "postInfo.html" . }}
+</article>
+{{ if .PrevInSection }}
+<div style="width: 48%; float: left; height: 1em;"><!--TODO: remove CSS-->
+    <a href="{{.PrevInSection.Permalink}}">
+    &larr; {{.PrevInSection.Title}}</a>
+</div>
+{{ end }}
+{{ if .NextInSection }}
+<div style="width: 48%; float: right; height: 1em; margin: 0; text-align: right;"><!--TODO: remove CSS-->
+    <a href="{{.NextInSection.Permalink}}">
+    {{.NextInSection.Title}} &rarr;</a></div>
+{{ end }}
+
+{{ if and (.Site.Params.paginationSinglePost) (ne .Type "page") }}
+{{ partial "paginationPost.html" . }}
+{{ end }}
+
+{{ if .Site.DisqusShortname }}
+{{ template "_internal/disqus.html" . }}
+{{ end }}
+
+{{ end }}

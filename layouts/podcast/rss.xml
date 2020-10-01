@@ -1,0 +1,54 @@
+<rss version="2.0"
+     xmlns:content="http://purl.org/rss/1.0/modules/content/"
+     xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:atom="http://www.w3.org/2005/Atom"
+     xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+     xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+     xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"
+     xmlns:media="http://search.yahoo.com/mrss/">
+  <channel>
+    <title>{{ .Site.Params.ShowTitle }}</title>
+    {{if .Site.Params.FyydVerifyCode}}<fyyd:verify xmlns:fyyd="https://fyyd.de/fyyd-ns/">{{.Site.Params.FyydVerifyCode}}</fyyd:verify>{{end}}
+    <atom:link href="{{ .Site.BaseURL }}index.xml" rel="self" type="application/rss+xml" />
+    <link>{{ .Site.BaseURL }}</link>
+    <description>{{ .Site.Params.ShowSummary}}</description>
+    <lastBuildDate>{{ .Date }}</lastBuildDate>
+    <sy:updatePeriod>hourly</sy:updatePeriod>
+    <sy:updateFrequency>1</sy:updateFrequency>
+    <language>{{.Site.LanguageCode}}</language>
+    <copyright>Copyright {{.Site.Params.CopyrightYears}} {{ .Site.Params.AuthorName }}</copyright>
+    <itunes:subtitle>{{ .Site.Params.ShowSubtitle}}</itunes:subtitle>
+    <itunes:summary>{{ .Site.Params.ShowSummary}}</itunes:summary>
+    <itunes:category text="{{.Site.Params.ItunesCategoryMain | safeHTML}}">
+        <itunes:category text="{{.Site.Params.ItunesCategorySub | safeHTML}}" />
+    </itunes:category>
+    <itunes:author>{{ .Site.Params.AuthorName }}</itunes:author>
+    <itunes:owner>
+        <itunes:name>{{ .Site.Params.AuthorName }}</itunes:name>
+        <itunes:email>{{ .Site.Params.Email}}</itunes:email>
+    </itunes:owner>
+    <itunes:block>{{.Site.Params.ItunesBlock}}</itunes:block>
+    <itunes:explicit>{{.Site.Params.ItunesExplicit}}</itunes:explicit>
+    <itunes:image href="{{ .Site.Params.CoverFull | absURL }}" />
+    {{ range .Data.Pages }}
+    <item>
+        <link>{{ .Permalink }}</link>
+        <title>{{ .Title }}</title>
+        <pubDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 -0700" | safeHTML }}</pubDate>
+        <description>{{ htmlUnescape .Summary | plainify }}</description>
+        <enclosure url="{{ .Params.Mp3 }}" length="{{ .Params.Size }}" type="audio/mpeg" />
+        <guid>{{ .Permalink }}</guid>
+        <itunes:episodeType>{{ .Params.Type }}</itunes:episodeType>
+        <itunes:author>{{ .Site.Params.AuthorName }}</itunes:author>
+        <itunes:summary>{{ htmlUnescape .Summary | plainify }}</itunes:summary>
+        {{ `<content:encoded><![CDATA[` | safeHTML }}{{ htmlUnescape .Content | safeHTML }}]]></content:encoded>
+        <itunes:image href="{{ .Site.Params.Cover | absURL }}" />
+        <itunes:duration>{{ .Params.Duration }}</itunes:duration>
+        {{if eq .Params.Type "full" }}
+        <itunes:episode>{{ .Params.Episode }}</itunes:episode>
+        {{end}}
+    </item>
+    {{ end }}
+  </channel>
+</rss>
